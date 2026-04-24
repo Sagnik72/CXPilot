@@ -1,76 +1,101 @@
 # CXPilot
-CXPilot is an AI-powered customer experience platform for managing support tickets. It features role-based access (admin, agent, user), real-time communication, and AI-driven assistance with feedback analysis. Built with React, ASP.NET Core, Azure Functions, Azure SQL, Docker, and Kubernetes-ready architecture.
 
-# 🚀 CXPilot
-
-<p align="center">
-  <b>AI-powered Customer Experience Platform</b><br/>
-  Streamlining ticket management, collaboration, and support workflows
-</p>
-
----
+AI-powered customer experience platform for ticket management, collaboration, and sentiment-driven support insights.
 
 ## 📌 Overview
 
-**CXPilot** is a full-stack, cloud-ready customer experience platform designed to manage support tickets efficiently. It enables seamless collaboration between clients, agents, and administrators, enhanced with AI-powered assistance and feedback analysis.
+`CXPilot` is a cloud-ready support platform built with React, ASP.NET Core APIs, Azure Functions, and Azure SQL. It supports role-based workflows (Admin, Agent, User), end-to-end ticket lifecycle handling, and AI-assisted feedback analysis.
+
+## 🧠 System Architecture
+
+```text
+      +----------------------+
+      |      Frontend        |
+      |      (React)         |
+      +----------+-----------+
+                 |
+                 |
+    -------------------------------
+    |             |               |
+
++---------------+ +---------------+ +----------------------+
+| Auth Service  | | Ticket Service| | AI Analysis Service |
+|   (.NET API)  | |   (.NET API)  | | (.NET / Azure Func) |
++-------+-------+ +-------+-------+ +----------+-----------+
+        |                 |                    |
+        |                 |                    |
+        ---------------------------------------
+                         |
+                 +---------------+
+                 | Azure SQL DB  |
+                 +---------------+
+```
 
 ---
 
-## ✨ Key Features
+## 🔗 API Endpoints
 
-- 🔐 **Role-Based Access Control (RBAC)**  
-  - Admin, Agent, and User roles with secure JWT authentication  
+### 🔐 Auth Service
 
-- 🎫 **Ticket Management System**  
-  - Create, track, and manage tickets with priority levels  
-  - Status lifecycle: `Open → In Progress → Resolved`  
-
-- 💬 **Real-Time Communication**  
-  - Comment-based interaction between users and agents  
-
-- 🤖 **AI Integration**  
-  - Context-aware chatbot for assistance  
-  - Feedback sentiment analysis for insights  
-
-- 👑 **Admin Control Panel**  
-  - User approval system  
-  - Ticket assignment & monitoring  
-  - Performance tracking  
-
-- ☁️ **Cloud-Native Architecture**  
-  - Serverless processing with Azure Functions  
-  - Scalable storage using Azure SQL Database  
-
-- 🐳 **DevOps Ready**  
-  - Docker containerization  
-  - Kubernetes deployment-ready  
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/register` | Register new user |
+| POST | `/login` | Login and get JWT token |
+| GET | `/users/pending` | Get users awaiting approval |
+| POST | `/approve-user` | Approve user and assign role |
 
 ---
 
-## 🧱 Tech Stack
+### 🎫 Ticket Service
 
-| Layer        | Technology |
-|-------------|-----------|
-| Frontend    | React.js, JavaScript, HTML5, CSS3 |
-| Backend     | ASP.NET Core (C#), REST APIs |
-| Auth        | JWT (JSON Web Token) |
-| Database    | Azure SQL Database |
-| Cloud       | Azure Functions |
-| DevOps      | Docker, Kubernetes |
-
----
-
-## 🔐 Authentication & Roles
-
-| Role   | Responsibilities |
-|--------|----------------|
-| 👤 User (Client) | Create & track tickets |
-| 👨‍💼 Agent        | Resolve tickets & communicate |
-| 👑 Admin         | Approve users, assign tasks, monitor system |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/tickets` | Create new ticket |
+| GET | `/tickets` | Get all tickets |
+| GET | `/tickets/{id}` | Get ticket by ID |
+| PUT | `/tickets/{id}/status` | Update ticket status |
+| POST | `/tickets/{id}/assign` | Assign ticket to agent |
+| POST | `/tickets/{id}/comment` | Add comment |
+| POST | `/tickets/{id}/feedback` | Submit feedback |
 
 ---
 
-## 🔁 System Workflow
+### 🤖 AI Analysis Service
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/analyze-feedback` | Analyze sentiment of feedback |
+
+---
+
+## 📊 Sample AI Response
+
+```json
+{
+  "sentiment": "Negative",
+  "keywords": ["slow", "delay"]
+}
+```
+
+## 🧱 Database Design (High Level)
+
+- `Users`: `id, name, email, password, role, isApproved`
+- `Tickets`: `id, title, description, status, priority, createdBy, assignedTo`
+- `Comments`: `id, ticketId, userId, message, timestamp`
+- `Feedback`: `id, ticketId, message, sentiment`
+
+## 🔁 Data Flow Example
+
+1. User creates ticket
+2. Ticket stored in database
+3. Admin assigns agent
+4. Agent resolves issue
+5. User submits feedback
+6. Feedback sent to AI service
+7. Sentiment stored in database
+8. Admin views insights
+
+## 🐳 Deployment Architecture
 
 ```text
 User Signup → Admin Approval → Login (JWT)
@@ -98,14 +123,22 @@ cxpilot/
 ├── docker/          # Docker configs
 └── k8s/             # Kubernetes manifests
 ---
+- Each service runs in its own container (Docker)
+- Services are orchestrated using Kubernetes
+- AI processing can be deployed via Azure Functions
+- Database hosted on Azure SQL Database
 
-## ⚙️ Setup Instructions
+## 🚀 Future Enhancements
 
 ### Prerequisites
 - Node.js  
 - .NET SDK  
 - Docker (optional)  
 - Azure account  
+- Auto ticket assignment using AI
+- Real-time notifications
+- Advanced analytics dashboard
+- Multi-tenant support
 
 ---
 
@@ -114,7 +147,9 @@ cxpilot/
 cd frontend
 npm install
 npm start
+## 🔥 What This README Now Shows
 
-###Run Backend
-cd backend
-dotnet run
+- ✅ Architecture thinking
+- ✅ API design
+- ✅ Data flow clarity
+- ✅ Cloud readiness
