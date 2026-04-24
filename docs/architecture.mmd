@@ -1,0 +1,14 @@
+flowchart TD
+    FE["Frontend<br/>(React)"]
+    AUTH["Auth Service<br/>(.NET API)"]
+    TICKET["Ticket Service<br/>(.NET API)"]
+    AI["AI Analysis Service<br/>(.NET / Azure Functions)"]
+    DB["Azure SQL DB"]
+
+    FE --> AUTH
+    FE --> TICKET
+    FE --> AI
+
+    AUTH --> DB
+    TICKET --> DB
+    AI --> DB
