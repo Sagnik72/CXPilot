@@ -97,32 +97,6 @@ AI-powered customer experience platform for ticket management, collaboration, an
 
 ## 🐳 Deployment Architecture
 
-```text
-User Signup → Admin Approval → Login (JWT)
-   ↓
-Create Ticket
-   ↓
-Admin Assigns Agent
-   ↓
-Agent Works (In Progress)
-   ↓
-Client ↔ Agent Communication
-   ↓
-AI Assistance
-   ↓
-Ticket Resolved
-   ↓
-User Feedback → AI Analysis → Admin Insights
----
-## 📁 Project Structure (High Level)
-cxpilot/
-│
-├── frontend/        # React application
-├── backend/         # ASP.NET Core APIs
-├── azure-functions/ # AI & background processing
-├── docker/          # Docker configs
-└── k8s/             # Kubernetes manifests
----
 - Each service runs in its own container (Docker)
 - Services are orchestrated using Kubernetes
 - AI processing can be deployed via Azure Functions
@@ -130,11 +104,6 @@ cxpilot/
 
 ## 🚀 Future Enhancements
 
-### Prerequisites
-- Node.js  
-- .NET SDK  
-- Docker (optional)  
-- Azure account  
 - Auto ticket assignment using AI
 - Real-time notifications
 - Advanced analytics dashboard
@@ -142,11 +111,6 @@ cxpilot/
 
 ---
 
-### Run Frontend
-```bash
-cd frontend
-npm install
-npm start
 ## 🔥 What This README Now Shows
 
 - ✅ Architecture thinking
